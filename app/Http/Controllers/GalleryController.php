@@ -8,12 +8,14 @@ class GalleryController extends Controller
 {
     //List Gallerires
     public function index(){
-        die('Gallery/index');
+        // render view
+       return view('gallery/index');
     }
 
     // show create form
     public function create(){
-        die('gallery/Create');
+        // render view
+       return view('gallery/create');
     }
 
     // store gallery
