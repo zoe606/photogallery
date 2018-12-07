@@ -28,6 +28,11 @@
             <div class="title-bar-left"><button class="menu-icon" type="button" data-open="my-info"></button><span
                 class="title-bar-title">Mike Mikerson</span></div>
           </div>
+          @if(Session::has('message'))
+          <div class="alert alert-info">
+            {{Session::get('message')}}
+          </div>
+          @endif
           @yield('content')
           <hr>
           
