@@ -51,7 +51,7 @@ class GalleryController extends Controller
         );
 
         // set msg
-        \session::flash('message', 'Gallery Added');
+        \Session::flash('message', 'Gallery Added');
         // redirect
         return \Redirect::route('gallery.index');
     }
