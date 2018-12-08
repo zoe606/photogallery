@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use DB;
 
 class GalleryController extends Controller
-{
+{   
+    private $table = 'galleries';
+
     //List Gallerires
     public function index(){
+        // get all galleries
+        $galleries = DB::table($this->table)->get();
 
         // render view
-       return view('gallery/index');
+       return view('gallery/index', compact('galleries'));
     }
 
     // show create form
@@ -37,7 +41,7 @@ class GalleryController extends Controller
         }
 
         // insert to db
-        DB::table('galleries')->insert(
+        DB::table($this->table)->insert(
             [
                 'name' => $name,
                 'description' => $description,
@@ -45,13 +49,23 @@ class GalleryController extends Controller
                 'owner_id' => $owner_id
             ]
         );
+
+        // set msg
+        \session::flash('message', 'Gallery Added');
         // redirect
-        return \Redirect::route('gallery.index')->with('message', 'Gallery Created');
+        return \Redirect::route('gallery.index');
     }
 
     // show gallery photo
     public function show($id){
-        die($id);
+        //  get gallery
+        $gallery = DB::table($this->table)->where('id', $id)->first();
+
+        // get photo
+        $photos = DB::table('photos')->where('gallery_id', $id)->get();
+        
+        // render view
+        return view('gallery/show', compact('gallery', 'photos'));
     }
 
 }
