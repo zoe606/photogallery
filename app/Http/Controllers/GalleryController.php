@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 
 class GalleryController extends Controller
 {   
@@ -20,6 +21,10 @@ class GalleryController extends Controller
 
     // show create form
     public function create(){
+        // check if loggedin
+        if(!Auth::check()){
+            return \Redirect::route('gallery.index');   
+        }
         // render view
        return view('gallery/create');
     }
